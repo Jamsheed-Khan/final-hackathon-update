@@ -184,15 +184,15 @@ const AdminCoursesPage = () => {
             style={{ padding: 24, minHeight: 360 }}
           >
             <Row gutter={[16, 16]}>
-              <Col span={18}>
+              <Col xs={24} sm={18}>
                 <Title level={3}>Courses</Title>
               </Col>
-              <Col span={6} style={{ textAlign: "right" }}>
+              <Col xs={24} sm={6} style={{ textAlign: "right" }}>
                 <Button type="primary" onClick={handleAddCourse}>
                   <PlusOutlined /> Add Course
                 </Button>
               </Col>
-              <Col span={24}>
+              <Col xs={24}>
                 <Table
                   dataSource={courses.map((course) => ({
                     ...course,
