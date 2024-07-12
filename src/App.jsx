@@ -8,6 +8,7 @@ import StudentInformationModal from './Components/StudentInformationModal/Studen
 import TeacherInformationModal from './Components/TeacherInformationModal/TeacherInformationModal.jsx'
 import AdminCoursesPage from './Components/AdminCoursespage/AdminCoursesPage.jsx'
 import AdminDashboard from './Components/AdminDashboard/AdminDashboard.jsx'
+import AllCourses from './Components/AllCourses/AllCpurses.jsx'
 function App() {
   return (
     <>
@@ -16,7 +17,8 @@ function App() {
      {/* <StudentInformationModal /> */}
      {/* <TeacherInformationModal /> */}
      {/* <AdminCoursesPage /> */}
-     <AdminDashboard />
+     {/* <AdminDashboard /> */}
+     <AllCourses />
     </>
   )
 }
