@@ -9,6 +9,7 @@ import TeacherInformationModal from './Components/TeacherInformationModal/Teache
 import AdminCoursesPage from './Components/AdminCoursespage/AdminCoursesPage.jsx'
 import AdminDashboard from './Components/AdminDashboard/AdminDashboard.jsx'
 import AllCourses from './Components/AllCourses/AllCpurses.jsx'
+import AllTeachers from './Components/AllTeachers/AllTeachers.jsx'
 function App() {
   return (
     <>
@@ -18,7 +19,8 @@ function App() {
      {/* <TeacherInformationModal /> */}
      {/* <AdminCoursesPage /> */}
      {/* <AdminDashboard /> */}
-     <AllCourses />
+     {/* <AllCourses /> */}
+     <AllTeachers />
     </>
   )
 }
