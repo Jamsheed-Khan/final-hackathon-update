@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import smitlogo from './smitlogo.png'
 import {
   Layout,
   Menu,
@@ -22,7 +23,8 @@ import {
   FileOutlined,
   TeamOutlined,
   SettingOutlined,
-  PlusOutlined
+  PlusOutlined,
+  BookOutlined
 } from '@ant-design/icons';
 import { useLocalStorage } from 'usehooks-ts';
 
@@ -59,7 +61,7 @@ const AdminDashboard = () => {
   const handleAddCourseSubmit = (values) => {
     const newCourse = {
       id: Math.random().toString(36).substring(2, 15),
-      ...values,
+     ...values,
       teachers: [],
     };
     setCourses([...courses, newCourse]);
@@ -70,7 +72,7 @@ const AdminDashboard = () => {
   const handleAddTeacherSubmit = (values) => {
     const newTeacher = {
       id: Math.random().toString(36).substring(2, 15),
-      ...values,
+     ...values,
       courses: [],
     };
     setTeachers([...teachers, newTeacher]);
@@ -81,7 +83,7 @@ const AdminDashboard = () => {
   const handleEditSubmit = () => {
     if (selectedCourse) {
       const updatedCourses = courses.map(course =>
-        course.id === selectedCourse.id ? { ...course, ...selectedCourse } : course
+        course.id === selectedCourse.id? {...course,...selectedCourse } : course
       );
       setCourses(updatedCourses);
       message.success('Course updated successfully!');
@@ -89,7 +91,7 @@ const AdminDashboard = () => {
 
     if (selectedTeacher) {
       const updatedTeachers = teachers.map(teacher =>
-        teacher.id === selectedTeacher.id ? { ...teacher, ...selectedTeacher } : teacher
+        teacher.id === selectedTeacher.id? {...teacher,...selectedTeacher } : teacher
       );
       setTeachers(updatedTeachers);
       message.success('Teacher updated successfully!');
@@ -101,27 +103,27 @@ const AdminDashboard = () => {
   };
 
   const handleDeleteCourse = (record) => {
-    const updatedCourses = courses.filter((course) => course.id !== record.id);
+    const updatedCourses = courses.filter((course) => course.id!== record.id);
     setCourses(updatedCourses);
     message.success('Course deleted successfully!');
   };
 
   const handleDeleteTeacher = (record) => {
-    const updatedTeachers = teachers.filter((teacher) => teacher.id !== record.id);
+    const updatedTeachers = teachers.filter((teacher) => teacher.id!== record.id);
     setTeachers(updatedTeachers);
     message.success('Teacher deleted successfully!');
   };
 
   const handleCourseChange = (value) => {
     setSelectedCourse({
-      ...selectedCourse,
+     ...selectedCourse,
       teachers: value,
     });
   };
 
   const handleTeacherChange = (value) => {
     setSelectedTeacher({
-      ...selectedTeacher,
+     ...selectedTeacher,
       courses: value,
     });
   };
@@ -172,7 +174,7 @@ const AdminDashboard = () => {
 
   const teacherColumns = [
     {
-      title: 'Name',
+      title:'Name',
       dataIndex: 'name',
       key: 'name',
     },
@@ -215,78 +217,96 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <Layout>
-      <Header className="bg-white p-4">
-        <Row justify="space-between" align="middle">
-          <Col>
-            <Title level={4} style={{ color: '#1890ff' }}>
-              Admin Dashboard
-            </Title>
-          </Col>
-        </Row>
-      </Header>
-      <Layout>
-        <Sider className="bg-green-500" width={200}>
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            items={[
-              { key: '1', icon: <HomeOutlined />, label: 'Home' },
-              { key: '4', icon: <TeamOutlined />, label: 'Student' },
-              { key: '5', icon: <SettingOutlined />, label: 'Settings' },
-            ]}
+    <Layout className='h-screen'>
+      <Sider
+        breakpoint='lg'
+        collapsedWidth='0'
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+        theme='dark'
+      >
+        <div className='flex justify-center p-4' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <img
+            src={smitlogo}
+            alt='SMIT Logo'
+            style={{ width: 90, height: 90, borderRadius: '50%' }}
           />
-        </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Content>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-            </Breadcrumb>
-            <Row gutter={[24, 24]}>
-              <Col xs={24} sm={12}>
-                <Row justify="space-between" align="middle">
-                  <Col>
-                    <Title level={3} style={{ marginBottom: '16px' }}>
-                      Courses
-                    </Title>
-                  </Col>
-                  <Col>
-                    <Button type="primary" icon={<PlusOutlined />} onClick={handleAddCourse}>
-                      Add New Course
-                    </Button>
-                  </Col>
-                </Row>
-                <Table
-                  columns={courseColumns}
-                  dataSource={courses}
-                  pagination={false}
-                />
-              </Col>
-              <Col xs={24} sm={12}>
-                <Row justify="space-between" align="middle">
-                  <Col>
-                    <Title level={3} style={{ marginBottom: '16px' }}>
-                      Teachers
-                    </Title>
-                  </Col>
-                  <Col>
-                    <Button type="primary" icon={<PlusOutlined />} onClick={handleAddTeacher}>
-                      Add New Teacher
-                    </Button>
-                  </Col>
-                </Row>
-                <Table
-                  columns={teacherColumns}
-                  dataSource={teachers}
-                  pagination={false}
-                />
-              </Col>
-            </Row>
-          </Content>
-        </Layout>
+        </div>
+        <Menu
+          theme='dark'
+          mode='inline'
+          defaultSelectedKeys={['3']}
+          className='mt-8'
+        >
+          <Menu.Item key='1' icon={<HomeOutlined />}>
+            Home
+          </Menu.Item>
+          <Menu.Item key='2' icon={<BookOutlined />}>
+            Courses
+          </Menu.Item>
+          <Menu.Item key='3' icon={<UserOutlined />}>
+            Teachers
+          </Menu.Item>
+          <Menu.Item key='4' icon={<TeamOutlined />}>
+            Student
+          </Menu.Item>
+          <Menu.Item key='5' icon={<SettingOutlined />}>
+            Settings
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout style={{ padding: '0 24px 24px' }}>
+        <Content>
+          <h1>Admin Dashboard</h1>
+         
+          <Row gutter={[24, 24]}>
+            <Col xs={24} sm={12}>
+              <Row justify="space-between" align="middle">
+                <Col>
+                  <Title level={3} style={{ marginBottom: '16px' }}>
+                    Courses
+                  </Title>
+                </Col>
+                <Col>
+                  <Button type="primary" icon={<PlusOutlined />} onClick={handleAddCourse}>
+                    Add New Course
+                  </Button>
+                </Col>
+              </Row>
+              <Table
+                columns={courseColumns}
+                dataSource={courses}
+                pagination={false}
+              />
+            </Col>
+            <Col xs={24} sm={12}>
+              <Row justify="space-between" align="middle">
+                <Col>
+                  <Title level={3} style={{ marginBottom: '16px' }}>
+                    Teachers
+                  </Title>
+                </Col>
+                <Col>
+                  <Button type="primary" icon={<PlusOutlined />} onClick={handleAddTeacher}>
+                    Add New Teacher
+                  </Button>
+                </Col>
+              </Row>
+              <Table
+                columns={teacherColumns}
+                dataSource={teachers}
+                pagination={false}
+              />
+            </Col>
+          </Row>
+        </Content>
       </Layout>
       <Modal
-        title={selectedCourse ? 'Edit Course' : 'Edit Teacher'}
+        title={selectedCourse? 'Edit Course' : 'Edit Teacher'}
         visible={isEditModalVisible}
         onCancel={() => {
           setSelectedCourse(null);
@@ -319,32 +339,32 @@ const AdminDashboard = () => {
         >
           <Form.Item
             name="name"
-            label={`${selectedCourse ? 'Course' : 'Teacher'} Name`}
-            initialValue={selectedCourse ? selectedCourse.name : (selectedTeacher ? selectedTeacher.name : '')}
-            rules={[{ required: true, message: `Please input the ${selectedCourse ? 'course' : 'teacher'} name!` }]}
+            label={`${selectedCourse? 'Course' : 'Teacher'} Name`}
+            initialValue={selectedCourse? selectedCourse.name : (selectedTeacher? selectedTeacher.name : '')}
+            rules={[{ required: true, message: `Please input the ${selectedCourse? 'course' : 'teacher'} name!` }]}
           >
             <Input
               onChange={(e) => {
                 if (selectedCourse) {
-                  setSelectedCourse({ ...selectedCourse, name: e.target.value });
+                  setSelectedCourse({...selectedCourse, name: e.target.value });
                 } else if (selectedTeacher) {
-                  setSelectedTeacher({ ...selectedTeacher, name: e.target.value });
+                  setSelectedTeacher({...selectedTeacher, name: e.target.value });
                 }
               }}
             />
           </Form.Item>
           <Form.Item
             name="description"
-            label={`${selectedCourse ? 'Course' : 'Teacher'} Description`}
-            initialValue={selectedCourse ? selectedCourse.description : (selectedTeacher ? selectedTeacher.description : '')}
-            rules={[{ required: true, message: `Please input the ${selectedCourse ? 'course' : 'teacher'} description!` }]}
+            label={`${selectedCourse? 'Course' : 'Teacher'} Description`}
+            initialValue={selectedCourse? selectedCourse.description : (selectedTeacher? selectedTeacher.description : '')}
+            rules={[{ required: true, message: `Please input the ${selectedCourse? 'course' : 'teacher'} description!` }]}
           >
             <Input.TextArea
               onChange={(e) => {
                 if (selectedCourse) {
-                  setSelectedCourse({ ...selectedCourse, description: e.target.value });
+                  setSelectedCourse({...selectedCourse, description: e.target.value });
                 } else if (selectedTeacher) {
-                  setSelectedTeacher({ ...selectedTeacher, description: e.target.value });
+                  setSelectedTeacher({...selectedTeacher, description: e.target.value });
                 }
               }}
             />
