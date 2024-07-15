@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AdminDashboard from '../AdminDashboard/AdminDashboard'
 import AllCourses from '../AllCourses/AllCpurses'
 import AllTeachers from '../AllTeachers/AllTeachers'
+import StudentReportGenerate from '../StudentReportGenerate/StudentReportGenerate'
 
 
 
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/AllTeachers",
         element: <AllTeachers />
+    },
+    {
+        path: "/StudentReportGenerate",
+        element: <StudentReportGenerate />
     },
    
    
